@@ -40,6 +40,8 @@ public class NewsDAO {
             list.add(item);
         }
 
+        stmt.close();
+        
         return list;
     }
 
@@ -57,6 +59,8 @@ public class NewsDAO {
         item.setContent(result.getString("content"));
         item.setAuthor(result.getString("author"));
 
+        stmt.close();
+
         return item;
     }
 
@@ -67,11 +71,13 @@ public class NewsDAO {
         stmt.setString(3, item.getContent());
         stmt.setString(4, item.getAuthor());
         stmt.executeUpdate();
+        stmt.close();
     }
 
-     public void delNews(int id) throws Exception {
+    public void delNews(int id) throws Exception {
         PreparedStatement stmt = this.conn.prepareStatement("delete from news where id=?");
         stmt.setInt(1, id);
         stmt.executeUpdate();
+        stmt.close();
     }
 }
